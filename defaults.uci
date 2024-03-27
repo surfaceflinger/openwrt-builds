@@ -1,0 +1,44 @@
+# TODO: figure out defaults and set only customized ones below.
+# yes password below isnt "real" and is just a default
+
+# Wireless
+wireless.radio1=wifi-device
+wireless.radio1.channel='36'
+wireless.radio1.band='5g'
+wireless.radio1.htmode='HE80'
+wireless.radio1.cell_density='0'
+wireless.radio1.country='PL'
+wireless.default_radio1=wifi-iface
+wireless.default_radio1.device='radio1'
+wireless.default_radio1.network='lan'
+wireless.default_radio1.mode='ap'
+wireless.default_radio1.ssid='OpenWrt'
+wireless.default_radio1.encryption='sae-mixed'
+wireless.default_radio1.key='h9UJMYLVj9kG52'
+wireless.default_radio1.wpa_disable_eapol_key_retries='1'
+
+wireless.radio2=wifi-device
+wireless.radio2.channel='auto'
+wireless.radio2.band='2g'
+wireless.radio2.htmode='HE20'
+wireless.radio2.cell_density='0'
+wireless.radio2.country='PL'
+wireless.default_radio2=wifi-iface
+wireless.default_radio2.device='radio2'
+wireless.default_radio2.network='lan'
+wireless.default_radio2.mode='ap'
+wireless.default_radio2.ssid='OpenWrt 2.4GHz Legacy'
+wireless.default_radio2.encryption='psk-mixed'
+wireless.default_radio2.key='h9UJMYLVj9kG52'
+wireless.default_radio2.ieee80211w='1'
+wireless.wifinet3=wifi-iface
+wireless.wifinet3.device='radio2'
+wireless.wifinet3.mode='ap'
+wireless.wifinet3.ssid='OpenWrt 2.4GHz'
+wireless.wifinet3.encryption='sae-mixed'
+wireless.wifinet3.key='h9UJMYLVj9kG52'
+wireless.wifinet3.wpa_disable_eapol_key_retries='1'
+wireless.wifinet3.network='lan'
+
+# uhttpd
+uhttpd.main.redirect_https='1'

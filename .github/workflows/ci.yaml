@@ -1,0 +1,48 @@
+on:
+  schedule:
+    - cron: '0 0 * * 0'
+  push:
+    branches: [master]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Checkout this repo
+        uses: actions/checkout@main
+        with:
+          path: main
+
+      - name: Checkout builder
+        uses: actions/checkout@main
+        with:
+          repository: astro/nix-openwrt-imagebuilder
+          path: nix-openwrt-imagebuilder
+
+      - name: Prepare flake for building
+        run: |
+          pushd main
+            rm flake.lock
+          popd
+
+      - name: Update hashes in imagebuilder
+        run: |
+          pushd nix-openwrt-imagebuilder
+            nix run .#generate-hashes snapshot
+          popd
+
+      - name: Build firmware
+        run: |
+          nix build --override-input openwrt-imagebuilder "git+file://$GITHUB_WORKSPACE/nix-openwrt-imagebuilder" ./main#xiaomi_ax3600
+
+      - uses: actions/upload-artifact@main
+        with:
+          path: |
+            main/flake.lock
+            nix-openwrt-imagebuilder/hashes/
+            result/
+          if-no-files-found: error
+          compression-level: 9
